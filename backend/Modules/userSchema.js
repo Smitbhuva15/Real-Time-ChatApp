@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const validator=require('validator')
 
 const userSchema = new mongoose.Schema({
-    firstName: {
+    fullname: {
         type: String,
         required: true,
         minlength: [3, 'First name must be at least 3 characters long'],
@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
     lastName: {
         type: String,
         required: true,
-        minlength: [2, 'Last name must be at least 3 characters long'],
+        minlength: [3, 'Last name must be at least 3 characters long'],
     },
    email: {
         type: String,

@@ -93,7 +93,7 @@ exports.Login = async (req, res) => {
         _id: isExist._id       
       },
       process.env.JWT_SCRETE_KEY, 
-      { expiresIn: '1d' }  
+      { expiresIn: '7d' }  
     );
 
  
@@ -132,3 +132,10 @@ exports.userDetails=async(req,res)=>{
   }
 
 }
+
+
+// exports.updatePhoto=async(req,res)={
+
+  
+
+// }
