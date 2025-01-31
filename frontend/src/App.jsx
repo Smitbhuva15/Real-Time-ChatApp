@@ -5,15 +5,18 @@ import './App.css'
 import Navbar from './components/Navbar'
 import { Toaster } from 'react-hot-toast'
 import { useSelector } from 'react-redux'
-import { showtheme } from './FeatchingData/showTheme'
+
 import { useEffect } from 'react'
+import showTheme from './FeatchingData/showTheme'
+
 
 
 function App() {
 
+  showTheme()
   const theme = useSelector(store => store.theme.theme)
   console.log(theme)
-  showtheme()
+  
 
 
   return (

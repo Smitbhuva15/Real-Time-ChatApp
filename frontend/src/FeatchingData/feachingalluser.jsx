@@ -3,15 +3,15 @@ import { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../contextapi/AuthContext';
 import { useDispatch } from 'react-redux';
-import { getalluser } from '../store/messageSlice';
+import { getalluser, setloding } from '../store/messageSlice';
 
 const feachingalluser = async () => {
     
     const { token } = useContext(AuthContext)
-
     const dispatch = useDispatch()
 
     const Getusers = async () => {
+        dispatch(setloding(true))
         try {
             const response = await fetch(`http://localhost:5000/user/v2/api//other/user`, {
                 method: 'GET',
@@ -31,6 +31,9 @@ const feachingalluser = async () => {
         } catch (error) {
             console.log(error)
             toast.error("Internal Network Error!!")
+        }
+        finally{
+          dispatch(setloding(false))
         }
 
     }

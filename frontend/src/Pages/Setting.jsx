@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react'
 import {THEMES} from '../store/index'
 import { useSelector } from 'react-redux'
-import { showtheme } from '../FeatchingData/showTheme'
+import showTheme from '../FeatchingData/showTheme'
 
 const setting = () => {
   
   const theme= useSelector(store=>store.theme.theme)
-  showtheme()
-  
-  useEffect(() => {
-   
-   }, [theme]);
+ 
+  showTheme()
   return (
     <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl">
         <div className="space-y-6">
@@ -30,7 +27,7 @@ const setting = () => {
                       `}
                       onClick={() =>{
                         localStorage.setItem('chat-Theme',t)
-                        
+                        window.location.reload()
                       }}
                     >
                       <div className="relative h-8 w-full rounded-md overflow-hidden" data-theme={t}>

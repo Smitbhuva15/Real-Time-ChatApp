@@ -1,19 +1,20 @@
 import React from 'react'
 import { Users } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getuserSelect } from '../store/messageSlice';
+import SideBarSkeleton from './skeleton/SideBarSkeleton';
 
 
 
 const Sidebar = ({users}) => {
     const navigate=useNavigate()
     const dispatch=useDispatch()
-    if(!users){
-        return(
-            <p>loading....</p>
-        )
-    }
+   const  isAllUserLoding=useSelector(store=>store.message.isAllUserLoding)
+   console.log(isAllUserLoding)
+   if(isAllUserLoding){
+    <SideBarSkeleton />
+   }
  
   return (
   <aside className="h-full w-20 lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200">
@@ -42,7 +43,7 @@ const Sidebar = ({users}) => {
           <button
             key={user._id}
             onClick={()=>{
-                dispatch( getuserSelect(user?._id))
+                dispatch( getuserSelect(user))
             }}
 
             // onClick={() => setSelectedUser(user)}
@@ -66,7 +67,7 @@ const Sidebar = ({users}) => {
               )}
             </div>
 
-            {/* User info - only visible on larger screens */}
+           
             <div className="hidden lg:block text-left min-w-0">
               <div className="font-medium truncate">{user.fullName}</div>
               <div className="text-sm text-zinc-400">

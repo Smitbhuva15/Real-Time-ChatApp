@@ -5,7 +5,9 @@ export const messageSlice = createSlice({
 
   initialState: {
     Alluser: [],
-    selecteduser:''
+    selecteduser:{},
+    isAllUserLoding:true
+    
   },
 
   reducers: {
@@ -14,11 +16,15 @@ export const messageSlice = createSlice({
     },
     getuserSelect: (state, action) => {
       state.selecteduser = action.payload
-    }
+    },
+    setloding: (state, action) => {
+      state.isAllUserLoding = action.payload
+    },
+    
   }
 })
 
 
-export const { getalluser, getuserSelect } = messageSlice.actions
+export const { getalluser, getuserSelect,setloding } = messageSlice.actions
 
 export default messageSlice.reducer
