@@ -1,17 +1,20 @@
 const { userModel } = require("../Modules/userSchema");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { cloudinary } = require("../utils/Clodinary");
 
 
 exports.signup = async (req, res) => {
-  const { firstName, lastName, email, password, profilephoto } = req.body;
+  const { fullName, email, password, profilephoto } = req.body;
 
   try {
 
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!fullName || !email || !password) {
       return res.status(400).json({ message: "Please Fill All The Details !!" });
     }
+
+
 
     if (password.length < 8) {
       return res.status(400).json({ message: "Password must be at least 8 characters long !!" });
@@ -29,8 +32,7 @@ exports.signup = async (req, res) => {
 
 
     const userCreate = await userModel.create({
-      firstName,
-      lastName,
+      fullName,
       email,
       password: hashedPassword
 
@@ -48,6 +50,12 @@ exports.signup = async (req, res) => {
     });
 
   } catch (error) {
+
+    if (error.name === "ValidationError") {
+      const errorMessages = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ message: errorMessages });
+    }
+
     console.error(error);
     return res.status(500).json({ message: "Internal Server Error !!" });
   }
@@ -89,53 +97,85 @@ exports.Login = async (req, res) => {
 
     const jwttoken = jwt.sign(
       {
-        email: isExist.email, 
-        _id: isExist._id       
+        email: isExist.email,
+        _id: isExist._id
       },
-      process.env.JWT_SCRETE_KEY, 
-      { expiresIn: '7d' }  
+      process.env.JWT_SCRETE_KEY,
+      { expiresIn: '7d' }
     );
 
- 
+
 
     return res.status(200).json({
-     message: "User logged in successfully!",
+      message: "User logged in successfully!",
       user: {
-        firstName: isExist.firstName,
-        lastName: isExist.lastName,
+        fullName: isExist.fullName,
         email: isExist.email,
-        token:jwttoken
+        token: jwttoken
 
       }
     });
 
   } catch (error) {
+
+    if (error.name === "ValidationError") {
+      const errorMessages = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({ message: errorMessages });
+    }
     console.error(error);
     return res.status(500).json({ message: "Internal Server Error !!" });
   }
 
 }
 
-exports.userDetails=async(req,res)=>{
+exports.userDetails = async (req, res) => {
 
-  const userDetails=req.user;
+  const userDetails = req.user;
   try {
-    return res.status(500).json({ 
-      user:userDetails ,
-      message:"user data fetch successFullY!!"
+    return res.status(200).json({
+      user: userDetails,
+      message: "user data fetch successFullY!!"
     });
 
-    
+
   } catch (error) {
     return res.status(500).json({ message: "Internal Server Error !!" });
-    
+
   }
 
 }
 
 
-// exports.updatePhoto=async(req,res)={
+exports.updatePhoto = async (req, res) => {
 
+  const userId = req.user._id;
+
+  try {
+    const {fileurl} = req.body;
   
+    const response = await  cloudinary.uploader.upload(fileurl)
+    
+    const url = response.secure_url
+    if (!fileurl) {
+      return res.status(400).json({ message: "Profile Photo Must Be Require !!" });
+    }
 
-// }
+    exports.updateProfile = await userModel.findByIdAndUpdate(
+      userId,
+      { profilephoto: url },
+      { new: true }
+    )
+
+    return res.status(200).json({ message: "Profile Photo Updated SuccessFully !!" });
+
+
+  } catch (error) {
+    return res.status(500).json({ message: "Internal Server Error !!" });
+  }
+
+
+
+
+
+
+}
