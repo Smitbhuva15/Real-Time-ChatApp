@@ -12,6 +12,7 @@ import SignUp from './Pages/SignUp.jsx';
 import { Provider } from 'react-redux'
 import { store } from './store/store.js';
 import { AuthProvider } from './contextapi/AuthContext.jsx';
+import ChatContainer from './components/ChatContainer.jsx';
 
 
 
@@ -43,7 +44,8 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignUp />,
-      }
+      },
+    
 
     ],
   },
@@ -53,11 +55,11 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
 
 
-
+<Provider store={store}>
   <AuthProvider>
     <RouterProvider router={router} />
   </AuthProvider>
-
+  </Provider>
 
 
 
