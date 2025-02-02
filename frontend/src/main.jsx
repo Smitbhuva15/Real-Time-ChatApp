@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
       {
-        path: '/signup',
+        path: '/createacc',
         element: <SignUp />,
       },
     
