@@ -5,15 +5,16 @@ import { useForm } from "react-hook-form";
 import { useContext } from 'react';
 import { AuthContext } from '../contextapi/AuthContext';
 import { useSelector } from 'react-redux';
+import moment from 'moment'
 
-const MessageInput = () => {
+const MessageInput = ({socket}) => {
 
     const selecteduser = useSelector((store) => store.message.selecteduser);
     const id = selecteduser?._id;
    
     const [imagePreview, setImagePreview] = useState(null);
 
-    const { token } = useContext(AuthContext)
+    const { token,userData } = useContext(AuthContext)
 
     const handleImageUpload = (e) => {
 
@@ -36,7 +37,13 @@ const MessageInput = () => {
             text: text,
             file: imagePreview
         }
-
+        socket.emit("send-message",{
+            ...newdata,
+            receiverId :selecteduser._id,
+            senderId:userData._id,
+            createdAt: moment().format('DD-MM-YYYY hh:mm:ss')
+        })
+   
     
         try {
             const response = await fetch(`http://localhost:5000/user/v2/api//post/message/${id}`, {
@@ -112,6 +119,7 @@ const MessageInput = () => {
                             className='hidden'
                             {...register("file")}
                             onChange={handleImageUpload}
+                              accept="image/*"
                         />
 
                     </label>

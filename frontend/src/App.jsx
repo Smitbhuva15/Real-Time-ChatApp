@@ -15,7 +15,7 @@ function App() {
 
   showTheme()
   const theme = useSelector(store => store.theme.theme)
-  console.log(theme)
+
   
 
 

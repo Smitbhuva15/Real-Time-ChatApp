@@ -13,7 +13,7 @@ const feachingalluser = async () => {
     const Getusers = async () => {
         dispatch(setloding(true))
         try {
-            const response = await fetch(`http://localhost:5000/user/v2/api//other/user`, {
+            const response = await fetch(`http://localhost:5000/user/v2/api/other/user`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`

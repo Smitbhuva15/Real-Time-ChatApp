@@ -11,9 +11,12 @@ const Sidebar = ({users}) => {
     const navigate=useNavigate()
     const dispatch=useDispatch()
    const  isAllUserLoding=useSelector(store=>store.message.isAllUserLoding)
-   console.log(isAllUserLoding)
+
    if(isAllUserLoding){
-    <SideBarSkeleton />
+    return(
+      <SideBarSkeleton />
+
+    )
    }
  
   return (
@@ -27,14 +30,8 @@ const Sidebar = ({users}) => {
         {/* : Online filter toggle */}
         <div className="mt-3 hidden lg:flex items-center gap-2">
           <label className="cursor-pointer flex items-center gap-2">
-            <input
-              type="checkbox"
-             
-              className="checkbox checkbox-sm"
-            />
-            <span className="text-sm">Show online only</span>
-          </label>
-          <span className="text-xs text-zinc-500">`onlineUsers.length - 1 online`</span>
+              Total Users:  {users.length}
+            </label>
         </div>
       </div>
 
@@ -71,7 +68,7 @@ const Sidebar = ({users}) => {
             <div className="hidden lg:block text-left min-w-0">
               <div className="font-medium truncate">{user.fullName}</div>
               <div className="text-sm text-zinc-400">
-                {users.includes(user._id) ? "Online" : "Offline"}
+              
               </div>
             </div>
           </button>

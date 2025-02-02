@@ -1,6 +1,6 @@
 import React from 'react'
 
-const messageskeletor = () => {
+const  MessageSkeletor = () => {
 
     const skeletonMessages = Array(6).fill(null);
   return (
@@ -26,4 +26,4 @@ const messageskeletor = () => {
   )
 }
 
-export default messageskeletor
+export default MessageSkeletor
