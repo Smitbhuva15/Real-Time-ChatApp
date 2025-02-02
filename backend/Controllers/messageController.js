@@ -34,12 +34,15 @@ exports.getallmessages = async (req, res) => {
 exports.getUserForSlideBar = async (req, res) => {
     const loggedinuserid = req.user._id
     try {
-        const allotherUser = await userModel.find({ id: { $ne: loggedinuserid } }, { password: 0 })
-
-        if (!allotherUser) {
+        const allOtherUsers = await userModel.find(
+            { _id: { $ne: loggedinuserid } }, 
+            { password: 0 } 
+          );
+          
+        if (!allOtherUsers) {
             return res.status(400).json({ message: "Frinds not found " })
         }
-        return res.status(200).json({ users: allotherUser })
+        return res.status(200).json({ users: allOtherUsers })
 
 
     } catch (error) {
