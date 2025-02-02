@@ -8,15 +8,14 @@ exports.getallmessages = async (req, res) => {
     const myId = req.user._id;
     try {
         const userToChatId = req.params.id;
+      
 
-        const condition = {
+        const Messages = await messageModel.find({ 
             $or: [
                 { senderId: myId, receiverId: userToChatId },
                 { senderId: userToChatId, receiverId: myId }
             ]
-        }
-
-        const Messages = await messageModel.find({ condition })
+         })
 
         if (!Messages) {
             return res.status(400).json({ message: "Messages Not Found " })
@@ -56,13 +55,17 @@ exports.PostMessage = async (req, res) => {
 
      const id = req.params.id;
      
+     
     const userToChatId = id;
-    console.log(userToChatId)
     const { text,file } = req.body
      
-   const response = await cloudinary.uploader.upload(file)
-
-      const url = response.secure_url
+    let url;
+    if(file){
+        const response = await cloudinary.uploader.upload(file)
+       url = response.secure_url
+    }
+       
+    
 
   
 
