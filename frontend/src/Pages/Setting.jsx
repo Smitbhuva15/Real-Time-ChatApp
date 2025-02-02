@@ -9,7 +9,7 @@ const setting = () => {
  
   showTheme()
   return (
-    <div className="h-screen container mx-auto px-4 pt-20 max-w-5xl">
+    <div className="min-h-screen container mx-auto px-4 pt-20 max-w-5xl">
         <div className="space-y-6">
         <div className="flex flex-col gap-1">
           <h2 className="text-lg font-semibold">Theme</h2>
@@ -17,7 +17,7 @@ const setting = () => {
         </div>
 
 
-          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 gap-2">
                   {THEMES.map((t) => (
                     <button
                       key={t}

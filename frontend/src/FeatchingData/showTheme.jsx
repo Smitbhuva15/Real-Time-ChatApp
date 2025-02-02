@@ -7,7 +7,7 @@ const showTheme = () => {
 
     const dispatch=useDispatch()
   const setTheTheme=()=>{
-    const Chattheme=localStorage.getItem('chat-Theme')||'fantasy'
+    const Chattheme=localStorage.getItem('chat-Theme')||'winter'
     dispatch(useTheme(Chattheme))
 
   }

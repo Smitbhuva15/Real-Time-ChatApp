@@ -13,6 +13,7 @@ import { Provider } from 'react-redux'
 import { store } from './store/store.js';
 import { AuthProvider } from './contextapi/AuthContext.jsx';
 import ChatContainer from './components/ChatContainer.jsx';
+import ProtectHome from './FeatchingData/ProtectHome.jsx';
 
 
 
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home />,
+        element:<Home />,
       },
       {
         path: '/login',

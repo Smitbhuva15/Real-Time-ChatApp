@@ -1,15 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import toast from "react-hot-toast";
 import { Eye, EyeOff, Loader2, Lock, Mail, MessageSquare, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { useForm } from "react-hook-form";
 import AuthImagePattern from '../components/AuthImagePattern';
+import { useContext } from 'react';
+import { AuthContext } from '../contextapi/AuthContext';
 
 const SignUp = () => {
   const [password, setPassword] = useState(true);
   const [loading1, setLoading1] = useState(false);
   const navigate = useNavigate()
+
+
+  const token = localStorage.getItem('token');
+    useEffect(() => {
+      if (token) {
+        navigate('/')
+      }
+  
+    }, []);
+  
+
 
   const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
   const onSubmit = async (data, e) => {
@@ -59,8 +72,9 @@ const SignUp = () => {
 
   }
 
+  
   return (
-    <div className="min-h-screen grid lg:grid-cols-2 mt-60">
+    <div className="min-h-screen grid lg:grid-cols-2 md:mt-6 mt-14">
 
       {/* left side */}
       <div className="flex flex-col justify-center items-center p-6 sm:p-12 ">

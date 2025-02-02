@@ -19,9 +19,10 @@ const feachingalluser = async () => {
                     'Authorization': `Bearer ${token}`
                 }
             })
-
+           
             if (response.ok) {
                 const message = await response.json();
+              
                 dispatch(getalluser(message.users))
             }
             else {

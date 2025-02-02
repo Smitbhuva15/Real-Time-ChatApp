@@ -8,14 +8,15 @@ import SideBarSkeleton from './skeleton/SideBarSkeleton';
 
 
 const Sidebar = ({users}) => {
+
     const navigate=useNavigate()
     const dispatch=useDispatch()
    const  isAllUserLoding=useSelector(store=>store.message.isAllUserLoding)
 
+
    if(isAllUserLoding){
     return(
       <SideBarSkeleton />
-
     )
    }
  
@@ -30,7 +31,7 @@ const Sidebar = ({users}) => {
         {/* : Online filter toggle */}
         <div className="mt-3 hidden lg:flex items-center gap-2">
           <label className="cursor-pointer flex items-center gap-2">
-              Total Users:  {users.length}
+              Total Users:  {users.length+1}
             </label>
         </div>
       </div>
@@ -43,7 +44,7 @@ const Sidebar = ({users}) => {
                 dispatch( getuserSelect(user))
             }}
 
-            // onClick={() => setSelectedUser(user)}
+         
             className={`
               w-full p-3 flex items-center gap-3
               hover:bg-base-300 transition-colors
@@ -52,7 +53,7 @@ const Sidebar = ({users}) => {
           >
             <div className="relative mx-auto lg:mx-0">
               <img
-                src={user.profilePic || "/avatar.png"}
+                src={user.profilephoto || "/avatar.png"}
                 alt={user.name}
                 className="size-12 object-cover rounded-full"
               />
@@ -76,7 +77,7 @@ const Sidebar = ({users}) => {
 
 
     {users.length === 0 && (
-          <div className="text-center text-zinc-500 py-4">No online users</div>
+          <div className="text-center text-zinc-500 py-4">Users Not Found</div>
         )}
       </div>
   </aside>

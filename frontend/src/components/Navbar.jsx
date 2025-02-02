@@ -6,8 +6,9 @@ import { useContext } from 'react';
 import { AuthContext } from '../contextapi/AuthContext';
 
 const Navbar = () => {
-  const { userData ,Logout} = useContext(AuthContext);
-  const navigate=useNavigate()
+  const { userData, Logout} = useContext(AuthContext);
+  const navigate = useNavigate()
+  const token = localStorage.getItem('token');
 
   return (
     <header
@@ -17,36 +18,51 @@ const Navbar = () => {
       <div className="container mx-auto px-4 h-16">
         <div className="flex items-center justify-between h-full">
           <div className="flex items-center gap-8">
-            <Link to="/login" className="flex items-center gap-2.5 hover:opacity-80 transition-all">
-              <div className="sm:size-9 size-5 rounded-lg bg-primary/10 flex items-center justify-center">
-                <MessageSquare className="sm:w-5 sm:h-5 text-primary w-3 h-3" />
-              </div>
-              <h1 className="md:text-lg font-bold ">Chatterboxx</h1>
-            </Link>
+            {
+              token
+                ?
+                (<Link to="/" className="flex items-center gap-2.5 hover:opacity-80 transition-all">
+                  <div className="sm:size-9 size-5 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <MessageSquare className="sm:w-5 sm:h-5 text-primary w-3 h-3" />
+                  </div>
+                  <h1 className="md:text-lg font-bold ">ChatterWave</h1>
+                </Link>)
+                :
+                (<Link to="/login" className="flex items-center gap-2.5 hover:opacity-80 transition-all">
+                  <div className="sm:size-9 size-5 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <MessageSquare className="sm:w-5 sm:h-5 text-primary w-3 h-3" />
+                  </div>
+                  <h1 className="md:text-lg font-bold ">ChatterWave</h1>
+
+                </Link>)
+            }
+
+
+
           </div>
 
 
           <div className="flex items-center gap-2">
             <Link
               to={"/setting"}
-              className={`  btn btn-sm gap-2 transition-colors  `}
+              className={`  btn sm:btn-sm sm:gap-2 gap-1 transition-colors btn-xs `}
             >
-              <Settings className="w-4 h-4" />
+              <Settings className="sm:w-4 sm:h-4  w-3 h-3" />
               <span className="hidden sm:inline">Settings</span>
             </Link>
 
             {
               userData && userData.email && (
                 <div className='flex'>
-                  <Link to={"/profile"} className={`btn btn-sm gap-2`}>
-                    <User className="size-5" />
+                  <Link to={"/profile"} className={`btn sm:btn-sm sm:gap-2 gap-1 transition-colors btn-xs`}>
+                    <User className="sm:size-5 size-3" />
                     <span className="hidden sm:inline">Profile</span>
                   </Link>
 
-                  <button className="flex gap-2 items-center ml-2"  onClick={()=>{
+                  <button className="flex gap-2 items-center ml-2" onClick={() => {
                     Logout()
-                    navigate('/')
-                    }}>
+                    navigate('/login')
+                  }}>
                     <LogOut className="size-5" />
                     <span className="hidden sm:inline">Logout</span>
                   </button>

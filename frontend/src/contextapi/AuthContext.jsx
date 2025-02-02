@@ -11,6 +11,8 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const isVerify = !!token;
 
+   
+
     const getuserData = async () => {
         try {
             if (!token) return;
@@ -33,6 +35,8 @@ export const AuthProvider = ({ children }) => {
             }
         } catch (error) {
             console.error("Error fetching user data:", error);
+            toast.error("Internal Network Error!!")
+
         } finally {
             setLoading(false);
         }
@@ -42,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     const Logout = () => {
         setToken("");
         localStorage.removeItem('token');
+         
        window.location.reload()
     };
 
