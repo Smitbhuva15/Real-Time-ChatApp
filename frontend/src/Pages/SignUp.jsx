@@ -13,6 +13,7 @@ const SignUp = () => {
   const [loading1, setLoading1] = useState(false);
   const navigate = useNavigate()
 
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const token = localStorage.getItem('token');
     useEffect(() => {
@@ -29,7 +30,7 @@ const SignUp = () => {
     e.preventDefault()
     try {
       setLoading1(true)
-      const response = await fetch(`http://localhost:5000/user/v2/api/signup`, {
+      const response = await fetch(`${apiUrl}/user/v2/api/signup`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"

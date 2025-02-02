@@ -13,6 +13,7 @@ const MessageInput = ({socket}) => {
     const id = selecteduser?._id;
    
     const [imagePreview, setImagePreview] = useState(null);
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const { token,userData } = useContext(AuthContext)
 
@@ -46,7 +47,7 @@ const MessageInput = ({socket}) => {
    
     
         try {
-            const response = await fetch(`http://localhost:5000/user/v2/api//post/message/${id}`, {
+            const response = await fetch(`${apiUrl}/user/v2/api//post/message/${id}`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",

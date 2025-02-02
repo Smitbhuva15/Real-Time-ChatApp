@@ -14,6 +14,7 @@ const Login = () => {
 
   const [password, setPassword] = useState(true);
   const [password1, setPassword1] = useState(true);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const [loading1, setLoading1] = useState(false);
   const navigate = useNavigate()
@@ -26,7 +27,7 @@ const Login = () => {
     e.preventDefault()
     try {
       setLoading1(true)
-      const response = await fetch(`http://localhost:5000/user/v2/api/login`, {
+      const response = await fetch(`${apiUrl}/user/v2/api/login`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"

@@ -8,9 +8,10 @@ import { formatMessageTime } from '../../../backend/utils/formatMessageTime'
 import  MessageSkeleton from '../components/skeleton/MessageSkeletor'
 import {io} from 'socket.io-client'
 
+const apiUrl = import.meta.env.VITE_API_URL;
 
 
-const socket=io(`http://localhost:5000`)
+const socket=io(`${apiUrl}`)
 
 
 const ChatContainer = () => {

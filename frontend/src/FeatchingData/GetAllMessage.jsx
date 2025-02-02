@@ -13,12 +13,14 @@ const GetAllMessage =async () => {
        const { token } = useContext(AuthContext)
     const id = selecteduser?._id;
     const dispatch = useDispatch()
+    const apiUrl = import.meta.env.VITE_API_URL;
+
 
   const fetchmessage=async()=>{
 
     try {
         dispatch( setmessageloading(true))
-        const response = await fetch(`http://localhost:5000/user/v2/api/all/message/${id}`, {
+        const response = await fetch(`${apiUrl}/user/v2/api/all/message/${id}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`

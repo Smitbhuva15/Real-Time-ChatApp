@@ -6,6 +6,8 @@ import toast from 'react-hot-toast';
 
 const Profile = () => {
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   const { userData, token } = useContext(AuthContext)
   const [selectedImg, setSelectedImg] = useState(null);
   const [loading1, setLoading1] = useState(false);
@@ -30,7 +32,7 @@ const Profile = () => {
 
       try {
         setLoading1(true)
-        const response = await fetch(`http://localhost:5000/user/v2/api/update/profile`, {
+        const response = await fetch(`${apiUrl}/user/v2/api/update/profile`, {
           method: 'PATCH',
           headers: {
             "Content-Type": "application/json",

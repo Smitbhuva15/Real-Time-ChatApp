@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
     const [userData, setUserData] = useState({});
     const [loading, setLoading] = useState(true);
     const isVerify = !!token;
+    const apiUrl = import.meta.env.VITE_API_URL;
 
    
 
@@ -18,7 +19,7 @@ export const AuthProvider = ({ children }) => {
             if (!token) return;
 
             setLoading(true);
-            const response = await fetch(`http://localhost:5000/user/v2/api/userinfo`, {
+            const response = await fetch(`${apiUrl}/user/v2/api/userinfo`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Bearer ${token}`,
